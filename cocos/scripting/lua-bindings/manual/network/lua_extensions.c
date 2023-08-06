@@ -32,6 +32,10 @@ extern "C" {
 #include "luasocket/luasocket.h"
 #include "luasocket/luasocket_scripts.h"
 #include "luasocket/mime.h"
+// bit32
+#include "bit32/lbitlib.h"
+// tiles
+#include "tiles/tiles.h"
 // cjson
 #include "cjson/lua_cjson.h"
 // filesystem
@@ -55,6 +59,8 @@ LUALIB_API int luaopen_lua_pb (lua_State *L);
 static luaL_Reg luax_exts[] = {
     {"socket.core", luaopen_socket_core}, // luasocket
     {"mime.core", luaopen_mime_core}, // luasocket
+    {"bit32", luaopen_bit32}, // bit32
+    {"tiles", luaopen_tiles}, // tiles
     {"cjson", luaopen_cjson_safe}, // cjson
     {"lfs", luaopen_lfs}, // lfs
     {"pack", luaopen_pack}, // lpack

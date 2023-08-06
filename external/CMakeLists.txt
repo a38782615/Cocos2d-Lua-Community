@@ -116,6 +116,8 @@ target_link_libraries(external ext_png)
 if(BUILD_LUA_LIBS)
     add_subdirectory(lua/luajit)
     add_subdirectory(lua/tolua)
+    add_subdirectory(lua/bit32)
+    add_subdirectory(lua/tiles)
     add_subdirectory(lua/cjson)
     add_subdirectory(lua/lfs)
     add_subdirectory(lua/lpack)
@@ -128,7 +130,7 @@ if(BUILD_LUA_LIBS)
     add_subdirectory(lua/protobuf)
     add_subdirectory(lua/lua-protobuf)
     set_property(TARGET external APPEND PROPERTY 
-        CC_LUA_DEPEND ext_luajit ext_tolua ext_cjson ext_lfs ext_lpack ext_lpeg ext_lsproto ext_lsqlite3 ext_luasocket ext_lunqlite ext_lzlib ext_protobuf ext_lua-protobuf
+        CC_LUA_DEPEND ext_luajit ext_tolua ext_tiles ext_bit32 ext_cjson ext_lfs ext_lpack ext_lpeg ext_lsproto ext_lsqlite3 ext_luasocket ext_lunqlite ext_lzlib ext_protobuf ext_lua-protobuf
     )
 endif()
 

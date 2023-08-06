@@ -150,6 +150,12 @@ set(COCOS_EXTENSIONS_HEADER
     ../extensions/Particle3D/CCParticle3DEmitter.h
     ../extensions/Particle3D/CCParticle3DAffector.h
     ../extensions/Particle3D/CCParticle3DRender.h
+    ../extensions/store/CCStore.h
+    ../extensions/store/CCStorePaymentTransaction.h
+    ../extensions/store/CCStorePaymentTransactionWrapper.h
+    ../extensions/store/CCStoreProduct.h
+    ../extensions/store/CCStoreProductsRequestDelegate.h
+    ../extensions/store/CCStoreTransactionObserver.h
     ../extensions/cocos-ext.h
     )
 
@@ -306,4 +312,6 @@ set(COCOS_EXTENSIONS_SRC
     ../extensions/Particle3D/PU/CCPUBehaviourTranslator.cpp
     ../extensions/Particle3D/PU/CCPUSlaveBehaviour.cpp
     ../extensions/Particle3D/PU/CCPUSlaveBehaviourTranslator.cpp
+    ../extensions/store/CCStorePaymentTransaction.cpp
+    ../extensions/store/CCStoreProduct.cpp
     )
