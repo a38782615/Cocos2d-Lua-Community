@@ -245,6 +245,51 @@ tolua_lerror:
 #endif
 }
 
+static int tolua_extra_Crypto_getCypher(lua_State* tolua_S)
+{
+#if COCOS2D_DEBUG >= 1
+	tolua_Error tolua_err;
+	if (
+		!tolua_isusertable(tolua_S, 1, "Crypto", 0, &tolua_err) ||
+		!tolua_isstring(tolua_S, 2, 0, &tolua_err) ||
+		!tolua_isnoobj(tolua_S, 3, &tolua_err)
+		)
+		goto tolua_lerror;
+	else
+#endif
+	{
+		const md5_byte_t* inputs = (const md5_byte_t*)tolua_tostring(tolua_S, 2, 0);
+		char* cypher = "_Fun Hospital_halo*365!D#";
+		char input[512] = { 0 };
+		sprintf(input, "%s%s", cypher, inputs);
+		int inLen = lua_objlen(tolua_S, 2);
+		bool isRawOutput = false;
+
+		md5_state_t state;
+		md5_byte_t digest[MD5_DIGEST_LENGTH];
+		md5_init(&state);
+		md5_append(&state, (const md5_byte_t*)input, inLen);
+		md5_finish(&state, digest);
+
+		if (isRawOutput) {
+			lua_pushlstring(tolua_S, (const char*)digest, MD5_DIGEST_LENGTH);
+		}
+		else {
+			char hexOutput[(MD5_DIGEST_LENGTH << 1) + 1] = { 0 };
+			for (int di = 0; di < MD5_DIGEST_LENGTH; ++di) {
+				sprintf(hexOutput + di * 2, "%02x", digest[di]);
+			}
+			lua_pushstring(tolua_S, (const char*)hexOutput);
+		}
+	}
+	return 1;
+#if COCOS2D_DEBUG >= 1
+	tolua_lerror:
+	tolua_error(tolua_S, "#ferror in function 'getCypher'.", &tolua_err);
+	return 0;
+#endif
+} 
+
 static int tolua_extra_Crypto_md5(lua_State* tolua_S)
 {
 #if COCOS2D_DEBUG >= 1
@@ -324,6 +369,8 @@ tolua_lerror:
 #endif
 }
 
+
+
 /* Open function */
 TOLUA_API int register_crypto_module(lua_State* tolua_S)
 {
@@ -341,6 +388,7 @@ TOLUA_API int register_crypto_module(lua_State* tolua_S)
 	tolua_function(tolua_S, "decodeBase64", tolua_extra_Crypto_decodeBase64);
 	tolua_function(tolua_S, "MD5", tolua_extra_Crypto_md5);
 	tolua_function(tolua_S, "MD5File", tolua_extra_Crypto_md5File);
+	tolua_function(tolua_S, "getCypher", tolua_extra_Crypto_getCypher);
 	tolua_endmodule(tolua_S);
 	tolua_endmodule(tolua_S);
 	return 1;
